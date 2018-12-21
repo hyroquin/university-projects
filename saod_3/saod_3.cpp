@@ -75,7 +75,7 @@ int main()
 	task *taskqueue = new task[tasknum];
 	int temp;
 	int tasknumstart = tasknum;
-	std::cout << "Choose option:\n1. Generate tasks randomly.\n2. Input tasks manually.";
+	std::cout << "Choose option:\n1. Generate tasks randomly.\n2. Input tasks manually.\n";
 	std::cin >> temp;
 	if (temp == 1)
 	{
