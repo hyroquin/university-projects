@@ -11,7 +11,7 @@ struct entry //database entry structure
 {
 	std::string name;
 	std::string sign;
-	int date[3] = { 0 };
+	int date[3];
 };
 
 class database
