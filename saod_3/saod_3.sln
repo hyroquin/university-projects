@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.168
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "saod_3", "saod_3.vcxproj", "{4375635D-DD24-4AC5-8E2D-89B634B2A963}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4375635D-DD24-4AC5-8E2D-89B634B2A963}.Debug|x64.ActiveCfg = Debug|x64
+		{4375635D-DD24-4AC5-8E2D-89B634B2A963}.Debug|x64.Build.0 = Debug|x64
+		{4375635D-DD24-4AC5-8E2D-89B634B2A963}.Debug|x86.ActiveCfg = Debug|Win32
+		{4375635D-DD24-4AC5-8E2D-89B634B2A963}.Debug|x86.Build.0 = Debug|Win32
+		{4375635D-DD24-4AC5-8E2D-89B634B2A963}.Release|x64.ActiveCfg = Release|x64
+		{4375635D-DD24-4AC5-8E2D-89B634B2A963}.Release|x64.Build.0 = Release|x64
+		{4375635D-DD24-4AC5-8E2D-89B634B2A963}.Release|x86.ActiveCfg = Release|Win32
+		{4375635D-DD24-4AC5-8E2D-89B634B2A963}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {30A37081-9C63-4554-AFDC-3AA05FB1F3E8}
+	EndGlobalSection
+EndGlobal
