@@ -120,6 +120,12 @@ int main()
 			std::cout << "Enter name of entry to be edited: ";
 			std::string name = input_string_cap();
 			int pos = staff.findpos(name);
+						if (pos == -1)
+			{
+				std::cout << "Entry not found.\n";
+				system("pause");
+				break;
+			}
 			staff.editentry(pos);
 			std::cout << "\n";
 			system("pause");
@@ -277,7 +283,6 @@ void database::editentry(int pos)
 	{
 		data[pos] = temp;
 	}
-
 }
 
 //prints database entry with given number
