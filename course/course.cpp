@@ -296,7 +296,7 @@ void database::printall()
 	printf("+-----------------------------------------------------------------------------+\n");
 	printf("| #:  | Name:                                      | Date:      | Sign:       |\n");
 	printf("+-----+--------------------------------------------+------------+-------------+\n");
-	for (int i = 0; i < data.size(); ++i)
+	for (unsigned int i = 0; i < data.size(); ++i)
 	{
 		printf("| %3i | %42s | %02i.%02i.%04i | %11s |\n", (i + 1), data[i].name.c_str(), data[i].date[0], data[i].date[1], data[i].date[2], data[i].sign.c_str());
 	}
