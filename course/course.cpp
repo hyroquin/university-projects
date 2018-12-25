@@ -339,6 +339,7 @@ void database::find(std::string name)
 		if (data[i].name.find(name) != std::string::npos)
 		{
 			print(i);
+			std::cout << "\n";
 			++count;
 		}
 	}
