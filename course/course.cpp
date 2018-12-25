@@ -574,6 +574,11 @@ std::string input_string_cap()
 		{
 			continue;
 		}
+		if (temp.size() > 42)
+		{
+			std::cout << "Wrong input. Input must not be more than 42 characters.\nTry again: ";
+			continue;
+		}
 		for (unsigned int i = 0; i < temp.size(); ++i)
 		{
 			if (!(((temp[i] > 64) && (temp[i] < 91)) || ((temp[i] > 96) && (temp[i] < 123)) || ((temp[i] == 45) || (temp[i] == 32))))
