@@ -11,7 +11,7 @@ struct entry //database entry structure
 {
 	std::string name;
 	std::string sign;
-	int date[3];
+	int date[3] = { 0 };
 };
 
 class database
@@ -120,7 +120,7 @@ int main()
 			std::cout << "Enter name of entry to be edited: ";
 			std::string name = input_string_cap();
 			int pos = staff.findpos(name);
-						if (pos == -1)
+			if (pos == -1)
 			{
 				std::cout << "Entry not found.\n";
 				system("pause");
@@ -362,7 +362,6 @@ int database::findpos(std::string name)
 	}
 	if (results.empty())
 	{
-		std::cout << "No entries with that name.";
 		return -1;
 	}
 	if (results.size() > 1)
