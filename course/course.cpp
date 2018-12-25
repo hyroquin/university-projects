@@ -445,10 +445,9 @@ void database::dataexport()
 		outfile << "Entry #" << (i + 1) << "\n";
 		outfile << data[i].name << "\n";
 		outfile << data[i].date[0] << "." << data[i].date[1] << "." << data[i].date[2] << "\n\n";
-		//outfile << data[i].sign << "\n\n";
 	}
 	outfile.close();
-	std::cout << "Exporting complete.\n";
+	std::cout << "Export complete.\n";
 }
 
 //returns 1 if entries are equal in all fields
