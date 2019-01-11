@@ -1,11 +1,10 @@
-// course.cpp : This file contains the 'main' function. Program execution begins and ends there.
+// course.cpp
 //
 
 #include "pch.h"
 #include <iostream> //for std::cout, std::cin
 #include <fstream> // for file operations
 #include <string> //for std::string and std::getline
-#include <vector> //for std::vector
 
 struct entry //database entry structure
 {
@@ -14,19 +13,48 @@ struct entry //database entry structure
 	int date[3] = { 0 };
 };
 
+struct node
+{
+	entry data;
+	node *next = NULL;
+	node *prev = NULL;
+};
+
+class entrylist
+{
+private:
+	node *head;
+	node *tail;
+	int lsize;
+public:
+	entrylist()
+	{
+		head = NULL;
+		tail = NULL;
+		lsize = 0;
+	}
+	~entrylist()
+	{
+	}
+	void push_back(entry);
+	void replace(int, entry);
+	void erase(int);
+	entry at(int);
+	int size();
+};
+
 class database
 {
 private:
-	std::vector<entry> data; //vector of entries
+	entrylist data; //list of entries
 	bool compare(entry, entry); //comparison function (alphabetical). used for sorting
 	std::string filename = "base.txt"; //name of file to open/write to
 public:
 	database() //empty constructor
 	{
 	}
-	~database() //destructor clears the vector
+	~database() //empty destructor
 	{
-		data.clear();
 	}
 	void createentry();
 	void deleteentry(int);
@@ -218,7 +246,87 @@ int main()
 }
 
 //_________________________________
-//_________class funcions__________
+//______entrylist functions________
+//_________________________________
+
+void entrylist::push_back(entry newentry)
+{
+	node *temp = new node;
+	temp->data = newentry;
+	temp->next = NULL;
+	if (lsize == 0)
+	{
+		head = temp;
+		tail = temp;
+		temp->prev = NULL;
+	}
+	else
+	{
+		temp->prev = tail;
+		tail->next = temp;
+		tail = temp;
+	}
+	++lsize;
+}
+
+void entrylist::replace(int pos, entry newentry)
+{
+	node *temp = head;
+	for (int i = 0; i < pos; ++i)
+	{
+		temp = temp->next;
+	}
+	temp->data = newentry;
+}
+
+void entrylist::erase(int pos)
+{
+	node *temp = head;
+	for (int i = 0; i < pos; ++i)
+	{
+		temp = temp->next;
+	}
+	if ((temp->next != NULL) && (temp->prev != NULL))
+	{
+		temp->prev->next = temp->next;
+		temp->next->prev = temp->prev;
+	}
+	if ((temp->next == NULL) && (temp->prev == NULL))
+	{
+		head = NULL;
+		tail = NULL;
+	}
+	else if (temp->next == NULL)
+	{
+		tail = temp->prev;
+		temp->prev->next = NULL;
+	}
+	else if (temp->prev == NULL)
+	{
+		head = temp->next;
+		temp->next->prev = NULL;
+	}
+	delete(temp);
+	--lsize;
+}
+
+entry entrylist::at(int pos)
+{
+	node *temp = head;
+	for (int i = 0; i < pos; ++i)
+	{
+		temp = temp->next;
+	}
+	return temp->data;
+}
+
+int entrylist::size()
+{
+	return lsize;
+}
+
+//_________________________________
+//_______database functions________
 //_________________________________
 
 //creates entry with given name, date and automatically fills sign field
@@ -235,9 +343,9 @@ void database::createentry()
 	temp.date[2] = date[2];
 	temp.sign = zodiac(temp.date);
 	int check = 0;
-	for (unsigned int i = 0; i < data.size(); ++i)
+	for (int i = 0; i < data.size(); ++i)
 	{
-		if (isequal(data[i], temp))
+		if (isequal(data.at(i), temp))
 		{
 			++check;
 			std::cout << "\nThis entry already exists:\n";
@@ -253,7 +361,7 @@ void database::createentry()
 //deletes entry on given position
 void database::deleteentry(int pos)
 {
-	data.erase(data.begin() + pos);
+	data.erase(pos);
 }
 
 //edits data of given entry
@@ -270,9 +378,9 @@ void database::editentry(int pos)
 	temp.date[2] = date[2];
 	temp.sign = zodiac(temp.date);
 	int check = 0;
-	for (unsigned int i = 0; i < data.size(); ++i)
+	for (int i = 0; i < data.size(); ++i)
 	{
-		if (isequal(data[i], temp))
+		if (isequal(data.at(i), temp))
 		{
 			++check;
 			std::cout << "\nThis entry already exists:\n";
@@ -281,14 +389,14 @@ void database::editentry(int pos)
 	}
 	if (!check)
 	{
-		data[pos] = temp;
+		data.replace(pos, temp);
 	}
 }
 
 //prints database entry with given number
 void database::print(int pos)
 {
-	std::cout << "Entry #" << (pos + 1) << ":\nName:\t\t" << data[pos].name << ".\nBirth date:\t" << data[pos].date[0] << "." << data[pos].date[1] << "." << data[pos].date[2] << "\nSign:\t\t" << data[pos].sign << ".\n";
+	std::cout << "Entry #" << (pos + 1) << ":\nName:\t\t" << data.at(pos).name << ".\nBirth date:\t" << data.at(pos).date[0] << "." << data.at(pos).date[1] << "." << data.at(pos).date[2] << "\nSign:\t\t" << data.at(pos).sign << ".\n";
 }
 
 void database::printall()
@@ -296,9 +404,9 @@ void database::printall()
 	printf("+-----------------------------------------------------------------------------+\n");
 	printf("| #:  | Name:                                      | Date:      | Sign:       |\n");
 	printf("+-----+--------------------------------------------+------------+-------------+\n");
-	for (unsigned int i = 0; i < data.size(); ++i)
+	for (int i = 0; i < data.size(); ++i)
 	{
-		printf("| %3i | %42s | %02i.%02i.%04i | %11s |\n", (i + 1), data[i].name.c_str(), data[i].date[0], data[i].date[1], data[i].date[2], data[i].sign.c_str());
+		printf("| %3i | %42s | %02i.%02i.%04i | %11s |\n", (i + 1), data.at(i).name.c_str(), data.at(i).date[0], data.at(i).date[1], data.at(i).date[2], data.at(i).sign.c_str());
 	}
 	printf("+-----------------------------------------------------------------------------+\n");
 }
@@ -314,19 +422,19 @@ void database::sort()
 {
 	int minpos;
 	entry temp;
-	for (unsigned int i = 0; i < data.size(); ++i)
+	for (int i = 0; i < data.size(); ++i)
 	{
 		minpos = i;
-		for (unsigned int j = i + 1; j < data.size(); ++j)
+		for (int j = i + 1; j < data.size(); ++j)
 		{
-			if (compare(data[j], data[minpos]))
+			if (compare(data.at(j), data.at(minpos)))
 			{
 				minpos = j;
 			}
 		}
-		temp = data[i];
-		data[i] = data[minpos];
-		data[minpos] = temp;
+		temp = data.at(i);
+		data.replace(i, data.at(minpos));
+		data.replace(minpos, temp);
 	}
 }
 
@@ -334,9 +442,9 @@ void database::sort()
 void database::find(std::string name)
 {
 	int count = 0;
-	for (unsigned int i = 0; i < data.size(); ++i)
+	for (int i = 0; i < data.size(); ++i)
 	{
-		if (data[i].name.find(name) != std::string::npos)
+		if (data.at(i).name.find(name) != std::string::npos)
 		{
 			print(i);
 			std::cout << "\n";
@@ -352,42 +460,54 @@ void database::find(std::string name)
 //returns position of entry with given name
 int database::findpos(std::string name)
 {
-	std::vector<int> results;
-	int pos;
-	for (unsigned int i = 0; i < data.size(); ++i)
+	int rnum = 0;
+	for (int i = 0; i < data.size(); ++i)
 	{
-		if (data[i].name.find(name) != std::string::npos)
+		if (data.at(i).name.find(name) != std::string::npos)
 		{
-			results.push_back(i);
+			++rnum;
 		}
 	}
-	if (results.empty())
+	int *results = new int[rnum];
+	int j = 0;
+	for (int i = 0; i < rnum; ++i)
+	{
+		for (; j < data.size(); ++j)
+		{
+			if (data.at(j).name.find(name) != std::string::npos)
+			{
+				results[i] = j;
+				break;
+			}
+		}
+	}
+	if (rnum == 0)
 	{
 		return -1;
 	}
-	if (results.size() > 1)
+	if (rnum > 1)
 	{
 		std::cout << "Several entries found:\n\n";
-		for (unsigned int i = 0; i < results.size(); ++i)
+		for (int i = 0; i < rnum; ++i)
 		{
 			std::cout << "Result " << (i + 1) << ":\n";
-			print(results.at(i));
+			print(results[i]);
 			std::cout << "\n";
 		}
 		std::cout << "Enter number of result to work on: ";
-		pos = input_int(1, results.size());
-		return results.at(pos - 1);
+		int pos = input_int(1, rnum);
+		return results[pos - 1];
 	}
 	else
 	{
-		return results.at(0);
+		return results[0];
 	}
 }
 
 //imports data vector from file
 void database::dataimport()
 {
-	std::vector<entry> newdata;
+	entrylist newdata;
 	entry temp;
 	std::string line;
 	std::ifstream infile;
@@ -444,8 +564,8 @@ void database::dataexport()
 	for (int i = 0; i < size(); ++i)
 	{
 		outfile << "Entry #" << (i + 1) << "\n";
-		outfile << data[i].name << "\n";
-		outfile << data[i].date[0] << "." << data[i].date[1] << "." << data[i].date[2] << "\n\n";
+		outfile << data.at(i).name << "\n";
+		outfile << data.at(i).date[0] << "." << data.at(i).date[1] << "." << data.at(i).date[2] << "\n\n";
 	}
 	outfile.close();
 	std::cout << "Export complete.\n";
