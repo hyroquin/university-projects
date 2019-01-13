@@ -9,7 +9,7 @@
 #include <vector>	//std::vector<>
 #include <cmath>	//std::abs()
 #include <ctime>	//std::time()
-#include <cstdlib>	//std::rand() and atoi()
+#include <cstdlib>	//std::rand()
 #include <cctype>	//std::isdigit()
 
 int input_int(int, int);
