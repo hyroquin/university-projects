@@ -249,6 +249,7 @@ int main()
 //______entrylist functions________
 //_________________________________
 
+//puts an entry at the end of list
 void entrylist::push_back(entry newentry)
 {
 	node *temp = new node;
@@ -269,6 +270,7 @@ void entrylist::push_back(entry newentry)
 	++lsize;
 }
 
+//replaces entry on given position
 void entrylist::replace(int pos, entry newentry)
 {
 	node *temp = head;
@@ -279,6 +281,7 @@ void entrylist::replace(int pos, entry newentry)
 	temp->data = newentry;
 }
 
+//deletes entry from given position
 void entrylist::erase(int pos)
 {
 	node *temp = head;
@@ -310,6 +313,7 @@ void entrylist::erase(int pos)
 	--lsize;
 }
 
+//returns entry on given position
 entry entrylist::at(int pos)
 {
 	node *temp = head;
@@ -320,6 +324,7 @@ entry entrylist::at(int pos)
 	return temp->data;
 }
 
+//returns size of the list
 int entrylist::size()
 {
 	return lsize;
