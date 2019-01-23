@@ -473,6 +473,10 @@ int database::findpos(std::string name)
 			++rnum;
 		}
 	}
+	if (rnum == 0)
+	{
+		return -1;
+	}
 	int *results = new int[rnum];
 	int j = 0;
 	for (int i = 0; i < rnum; ++i)
@@ -482,13 +486,10 @@ int database::findpos(std::string name)
 			if (data.at(j).name.find(name) != std::string::npos)
 			{
 				results[i] = j;
+				++j;
 				break;
 			}
 		}
-	}
-	if (rnum == 0)
-	{
-		return -1;
 	}
 	if (rnum > 1)
 	{
