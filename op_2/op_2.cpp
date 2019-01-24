@@ -10,7 +10,6 @@
 #include <cmath>	//std::abs()
 #include <ctime>	//std::time()
 #include <cstdlib>	//std::rand()
-#include <cctype>	//std::isdigit()
 
 int input_int(int, int);
 double input_double();
@@ -181,7 +180,7 @@ void randomvector(std::vector<double> (&numbers), unsigned int size)
 	}
 }
 
-void printvector(std::vector<double> (&numbers))
+void printvector(std::vector<double>(&numbers))
 {
 	unsigned int count = 0;
 	unsigned int minpos = 0;
@@ -203,8 +202,14 @@ void printvector(std::vector<double> (&numbers))
 	{
 		sum += numbers[i];
 	}
-	std::cout << "\n"
-		"Number of elements equal to 0: " << count << ".\n"
-		"Sum of elements after minumum element: " << sum << ".\n"
-		"Position of minimum element: " << (minpos + 1) << ".\n";
+	std::cout << "\nNumber of elements equal to 0: " << count << ".\n";
+	if ((minpos + 1) == numbers.size())
+	{
+		std::cout << "Sum of elements after minimum element: no elements.\n";
+	}
+	else
+	{
+		std::cout << "Sum of elements after minumum element: " << sum << ".\n";
+	}
+	std::cout << "Position of minimum element: " << (minpos + 1) << ".\n";
 }
