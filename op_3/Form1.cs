@@ -74,17 +74,29 @@ namespace op_3
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (!progressBar1.RightToLeftLayout)
-            {
-                progressBar1.RightToLeft = RightToLeft.Yes;
-                progressBar1.RightToLeftLayout = true;
-                return;
-            }
-            if (progressBar1.RightToLeftLayout)
-            {
-                progressBar1.RightToLeft = RightToLeft.No;
-                progressBar1.RightToLeftLayout = false;
-            }
+            progressBar1.Step = 1;
+            progressBar1.PerformStep();
+            progressBar1.Step = -1;
+            progressBar1.PerformStep();
+            //if (progressBar1.Value == progressBar1.Maximum)
+            //{
+            //    progressBar1.Step = -1;
+            //}
+            //else if (progressBar1.Value == progressBar1.Minimum)
+            //{
+            //    progressBar1.Step = 1;
+            //}
+            //if (progressBar1.RightToLeftLayout && progressBar1.Value == progressBar1.Minimum)
+            //{
+            //    progressBar1.RightToLeft = RightToLeft.No;
+            //    progressBar1.RightToLeftLayout = false;
+            //}
+            //else if (!progressBar1.RightToLeftLayout && progressBar1.Value == progressBar1.Minimum)
+            //{
+            //    progressBar1.RightToLeft = RightToLeft.Yes;
+            //    progressBar1.RightToLeftLayout = true;
+            //}
+            //progressBar1.PerformStep();
         }
     }
 }

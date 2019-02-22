@@ -15,6 +15,7 @@ int input_int(int, int);
 double input_double();
 void modsort(std::vector<double>(&));
 void randomvector(std::vector<double>(&), unsigned int);
+double minsum(std::vector<double>(&));
 void printvector(std::vector<double>(&));
 
 int main()
@@ -180,11 +181,28 @@ void randomvector(std::vector<double> (&numbers), unsigned int size)
 	}
 }
 
+double minsum(std::vector<double>(&numbers))
+{
+	int minpos = 0;
+	double sum = 0;
+	for (unsigned int i = 0; i < numbers.size(); ++i)
+	{
+		if (numbers[i] < numbers[minpos])
+		{
+			minpos = i;
+		}
+	}
+	for (unsigned int i = (minpos + 1); i < numbers.size(); ++i)
+	{
+		sum += numbers[i];
+	}
+	return sum;
+}
+
 void printvector(std::vector<double>(&numbers))
 {
 	unsigned int count = 0;
 	unsigned int minpos = 0;
-	double sum = 0;
 	std::cout << "Vector content:\n";
 	for (unsigned int i = 0; i < numbers.size(); ++i)
 	{
@@ -198,10 +216,6 @@ void printvector(std::vector<double>(&numbers))
 			++count;
 		}
 	}
-	for (unsigned int i = (minpos + 1); i < numbers.size(); ++i)
-	{
-		sum += numbers[i];
-	}
 	std::cout << "\nNumber of elements equal to 0: " << count << ".\n";
 	if ((minpos + 1) == numbers.size())
 	{
@@ -209,7 +223,7 @@ void printvector(std::vector<double>(&numbers))
 	}
 	else
 	{
-		std::cout << "Sum of elements after minumum element: " << sum << ".\n";
+		std::cout << "Sum of elements after minumum element: " << minsum(numbers) << ".\n";
 	}
 	std::cout << "Position of minimum element: " << (minpos + 1) << ".\n";
 }

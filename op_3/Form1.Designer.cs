@@ -64,7 +64,7 @@
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.SystemColors.Control;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(263, 36);
             this.label2.Name = "label2";
@@ -74,11 +74,10 @@
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(263, 60);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(24, 24);
+            this.label3.Size = new System.Drawing.Size(25, 24);
             this.label3.TabIndex = 8;
             this.label3.Text = "y:";
             // 
@@ -94,12 +93,12 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(263, 208);
+            this.progressBar1.Location = new System.Drawing.Point(-13, -6);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(217, 23);
-            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.progressBar1.Size = new System.Drawing.Size(765, 302);
+            this.progressBar1.Step = 1;
             this.progressBar1.TabIndex = 13;
-            this.progressBar1.Value = 100;
+            this.progressBar1.Value = 80;
             // 
             // textBox3
             // 
@@ -128,7 +127,6 @@
             // 
             // timer1
             // 
-            this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Form1
@@ -137,7 +135,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(492, 270);
             this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
@@ -145,6 +142,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.progressBar1);
             this.Name = "Form1";
             this.Text = "op_3";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
